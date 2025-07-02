@@ -1,0 +1,63 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.coverage
+.tox/
+.pytest_cache/
+htmlcov/
+
+# Virtual environment
+env/
+venv/
+.venv/
+.env*
+.env
+.venv
+
+# Database
+*.sqlite3
+db.sqlite3
+
+# Media and static files (if served locally)
+media/
+static/
+staticfiles/
+
+# IDE-specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.Trashes
+Thumbs.db
+
+# Django local settings
+local_settings.py
+
+# Django migrations cache
+**/migrations/__pycache__/
+**/migrations/*.pyc
+
+# Logs
+*.log
+
+# Celery
+celerybeat-schedule

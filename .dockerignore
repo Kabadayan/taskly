@@ -1,0 +1,42 @@
+# Bytecode and cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+
+# Git and version control
+.git/
+.gitignore
+
+# Editor/project files
+*.swp
+*.swo
+*.log
+*.sqlite3
+.idea/
+.vscode/
+
+# Environment files
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Test coverage and reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.pytest_cache/
+
+# Static and media (optional, depends on your deployment strategy)
+staticfiles/
+media/

@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/styles.css' %}" />
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <header class="header">
+            <i class='bxr bx-clipboard-check'></i>
+            <h1>taskly</h1>
+
+            <nav class="navbar">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+
+                <div></div>
+
+
+                {% if user.is_authenticated %}
+                    <p>Welcome, {{ request.user.username }}!</p>
+                    <form action="{% url 'logout' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <form action="{% url 'login' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Log in</button>
+                    </form>
+                    <form action="{% url 'register' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Sign in</button>
+                    </form>
+                {% endif %}
+            </nav>
+        </header>
+
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    <button data-open-modal><i class='bxr bx-clipboard-plus'></i></button>
+                </div>
+                <div class="table-container">
+                    <table class="content-table">
+                        <colgroup>
+                            <col style="width: 55%;">
+                            <col style="width: 10%;">
+                            <col style="width: 35%;">
+                        </colgroup>
+                        <tbody id="task-list">
+                            <!-- Tasks render here using AJAX -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+                <div class="footer-info">
+                    <p>Follow us on Social Media:</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                    <p>Made with <i class='bx bx-heart'></i> by Daniel Kabadayan © 2025</p>
+                </div>
+                <button id="toggle-theme" onclick="toggle()"><i id="theme-icon" class='bx bx-sun'></i></button>
+        </footer>
+
+    </div>
+
+    <dialog data-modal class="modal">
+        <header>New Task</header>
+        <hr />
+        <div class="modal-gap"></div>
+        <div>
+            <form id="create-task-form" action="{% url 'create_task' %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="modal-gap"></div>
+                <hr />
+                <div class="modal-buttons">
+                    <button data-close-modal type="button">Close</button>
+                    <button type="submit">Create</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog data-edit-modal class="modal">
+        <header>Edit Task</header>
+        <hr />
+        <div class="modal-gap"></div>
+        <div>
+            <form id="edit-task-form">
+                <input type="text" name="name" placeholder="New task name" required />
+                <input type="hidden" name="task-id" />
+                <div class="modal-gap"></div>
+                <hr />
+                <div class="modal-buttons">
+                    <button type="button" data-close-edit-modal>Close</button>
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <script>
+        function toggle() {
+            document.body.classList.toggle("light");
+        }
+
+        const toggleBtn = document.getElementById('toggle-theme');
+        const icon = document.getElementById('theme-icon');
+        let isSun = true;
+
+        toggleBtn.addEventListener('click', () => {
+        icon.classList.add('rotate-out');
+
+        setTimeout(() => {
+
+            icon.className = isSun ? 'bx bx-moon' : 'bx bx-sun';
+            icon.classList.add('rotate-in');
+
+            isSun = !isSun;
+
+
+            setTimeout(() => {
+            icon.classList.remove('rotate-in', 'rotate-out');
+            }, 500);
+        }, 300);
+        });
+    </script>
+    <script src="{% static 'scripts/ajax.js' %}"></script>
+    <script src="{% static 'scripts/modal.js' %}"></script>
+
+</body>
+
+</html>
